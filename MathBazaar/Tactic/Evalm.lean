@@ -32,7 +32,7 @@ unsafe instance Finset.toExprM
   let rec toExprAux {α : Type u} [ToLevel.{u}] [inst:ToExprM α]: List α  → MetaM Expr := fun x => do
     let type ← ToExprM.toTypeExprM α
     let finsettype ← mkAppM ``Finset #[type]
-    logInfo m!"{← ppExpr type}"
+    --logInfo m!"{← ppExpr type}"
     match x with
     | []    => pure <| mkAppN (.const ``Finset.empty [toLevel.{u}]) #[type]
     | [a]   => mkAppOptM ``Singleton.singleton #[none,finsettype,none,(←inst.toExprM a)]
